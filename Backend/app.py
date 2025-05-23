@@ -26,7 +26,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # Recommended setting
 db.init_app(app)
 
 # Register Blueprints
-app.register_blueprint(material_bp)
+app.register_blueprint(material_bp, url_prefix='/api')
 app.register_blueprint(maintenance_bp)
 app.register_blueprint(orders_bp)
 app.register_blueprint(production_bp)

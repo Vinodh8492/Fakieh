@@ -1,9 +1,11 @@
 // src/pages/Orders.jsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const API_BASE_URL = 'http://127.0.0.1:5000';
 
 const Orders = () => {
+  const [materials, setMaterials] = useState([]);
   const [activeTab, setActiveTab] = useState('New Order');
   const [formData, setFormData] = useState({
     supplier: '',
@@ -12,6 +14,17 @@ const Orders = () => {
     order_id: '',
     truck_license_plate: ''
   });
+
+  const fetchMaterials = async () => {
+    const res = await axios.get('http://127.0.0.1:5000/api/materials');
+    setMaterials(res.data);
+  };
+
+  useEffect(()=>{
+    fetchMaterials()
+  },[])
+
+  console.log(materials)
 
   const tabs = ['New Order', 'In Progress', 'Completed'];
 
@@ -115,9 +128,15 @@ const Orders = () => {
             required
           >
             <option value="">Select Material Type</option>
-            <option>Corn</option>
-            <option>Soy</option>
+            {[
+              ...new Set(materials.map((material) => material.type))
+            ].map((type, idx) => (
+              <option key={idx} value={type}>
+                {type}
+              </option>
+            ))}
           </select>
+
 
           <select
             name="customer"

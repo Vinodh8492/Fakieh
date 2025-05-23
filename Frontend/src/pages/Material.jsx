@@ -551,14 +551,14 @@ const Material = () => {
   };
 
   const fetchMaterials = async () => {
-    const res = await axios.get('http://127.0.0.1:5000/materials');
+    const res = await axios.get('http://127.0.0.1:5000/api/materials');
     setMaterials(res.data);
   };
 
   const handleAdd = async () => {
     if (formData.name && formData.unit && formData.code && formData.type) {
       try {
-        await axios.post('http://127.0.0.1:5000/materials', formData);
+        await axios.post('http://127.0.0.1:5000/api/materials', formData);
         setFormData({ name: '', unit: '', code: '', type: '' });
         fetchMaterials();
       } catch (error) {
@@ -575,14 +575,14 @@ const Material = () => {
   };
 
   const handleUpdate = async () => {
-    await axios.put(`http://127.0.0.1:5000/materials/${editingId}`, formData);
+    await axios.put(`http://127.0.0.1:5000/api/materials/${editingId}`, formData);
     setFormData({ name: '', unit: '', code: '', type: '' });
     setEditingId(null);
     fetchMaterials();
   };
 
   const handleDelete = async (id) => {
-    await axios.delete(`http://127.0.0.1:5000/materials/${id}`);
+    await axios.delete(`http://127.0.0.1:5000/api/materials/${id}`);
     setShowDeletePopup(null);
     fetchMaterials();
   };

@@ -118,7 +118,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchMaterials = async () => {
       try {
-        const res = await axios.get('http://127.0.0.1:5000/materials');
+        const res = await axios.get('http://127.0.0.1:5000/api/materials');
         setMaterialCount(res.data.length);
       } catch (error) {
         console.error("Error fetching materials count:", error);
